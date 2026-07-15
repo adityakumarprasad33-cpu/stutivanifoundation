@@ -1,0 +1,76 @@
+@layer base {
+  :root {
+    /* Base Variables */
+    --background: #FFFFFF;
+    --foreground: #0F172A;
+
+    --card: #FFFFFF;
+    --card-foreground: #0F172A;
+
+    --popover: #FFFFFF;
+    --popover-foreground: #0F172A;
+
+    --primary: #0F766E;
+    --primary-foreground: #FFFFFF;
+
+    --secondary: #10B981;
+    --secondary-foreground: #FFFFFF;
+
+    --muted: #F8FAFC;
+    --muted-foreground: #94A3B8;
+
+    --accent: #F59E0B;
+    --accent-foreground: #FFFFFF;
+
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
+
+    --border: #E2E8F0;
+    --input: #E2E8F0;
+    --ring: #0F766E;
+  }
+
+  .dark {
+    /* Dark Theme Variables */
+    --background: #0F172A;
+    --foreground: #FFFFFF;
+
+    --card: #1E293B;
+    --card-foreground: #FFFFFF;
+
+    --popover: #1E293B;
+    --popover-foreground: #FFFFFF;
+
+    --primary: #0F766E;
+    --primary-foreground: #FFFFFF;
+
+    --secondary: #10B981;
+    --secondary-foreground: #FFFFFF;
+
+    --muted: #1E293B;
+    --muted-foreground: #94A3B8;
+
+    --accent: #F59E0B;
+    --accent-foreground: #FFFFFF;
+
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
+
+    --border: #334155;
+    --input: #334155;
+    --ring: #0F766E;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

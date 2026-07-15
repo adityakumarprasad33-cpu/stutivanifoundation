@@ -1,0 +1,47 @@
+@theme {
+  /* Animation Durations */
+  --animate-duration-instant: 100ms;
+  --animate-duration-fast: 150ms;
+  --animate-duration-normal: 250ms;
+  --animate-duration-medium: 350ms;
+  --animate-duration-slow: 500ms;
+  --animate-duration-max: 700ms;
+  
+  /* Easings */
+  --animate-ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --animate-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  
+  /* Specific Animations */
+  --animate-accordion-down: accordion-down var(--animate-duration-normal) var(--animate-ease-out);
+  --animate-accordion-up: accordion-up var(--animate-duration-normal) var(--animate-ease-out);
+  --animate-fade-up: fade-up var(--animate-duration-slow) var(--animate-ease-out);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

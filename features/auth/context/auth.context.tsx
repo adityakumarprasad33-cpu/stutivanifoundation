@@ -28,9 +28,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const profile = await repo.getByUid(uid);
       setUser(profile);
       
-      // Update lastActivity as requested in ADR
+      // Update lastLogin as requested in ADR
       if (profile) {
-        await repo.update(profile.id, { lastActivity: new Date() });
+        await repo.update(profile.id, { lastLogin: new Date() });
       }
     } catch (error) {
       console.error('Failed to fetch user profile', error);

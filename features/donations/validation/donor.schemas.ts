@@ -40,25 +40,30 @@ export type UpdateDonorProfileDTO = Partial<CreateDonorProfileDTO>;
 
 // Legacy schemas to satisfy compiler during migration
 export const donorFormSchema = z.object({
-  donorType: z.enum(['INDIVIDUAL', 'ORGANIZATION', 'CORPORATE']),
+  donorType: z.enum(['INDIVIDUAL', 'ORGANIZATION', 'CORPORATE', 'NGO', 'TRUST']),
   fullName: z.string().min(2, 'Name must be at least 2 characters'),
-  organizationName: z.string().optional(),
+  organizationName: z.string().optional().or(z.literal('')),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(10, 'Invalid phone number'),
-  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, 'Invalid PAN format').optional().or(z.literal('')),
-  taxExempt: z.boolean().default(true),
+  taxDetails: z.object({
+    panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, 'Invalid PAN format').optional().or(z.literal('')),
+    eligible80G: z.boolean().default(true),
+  }).optional(),
   address: z.object({
-    street: z.string().min(5, 'Street address is required'),
-    city: z.string().min(2, 'City is required'),
-    state: z.string().min(2, 'State is required'),
-    country: z.string().min(2, 'Country is required'),
-    pinCode: z.string().min(6, 'Valid PIN/ZIP code required'),
-  }),
+    street: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    country: z.string().default('India'),
+    pinCode: z.string().optional(),
+  }).optional(),
   preferences: z.object({
     anonymousDonation: z.boolean().default(false),
     newsletterOptIn: z.boolean().default(true),
-    communicationPreference: z.enum(['EMAIL', 'SMS', 'WHATSAPP', 'PHONE', 'NONE']).default('EMAIL'),
+    preferredCommunication: z.enum(['EMAIL', 'SMS', 'WHATSAPP', 'PHONE', 'NONE']).default('EMAIL'),
   }),
+  notes: z.string().optional().or(z.literal('')),
+  tags: z.array(z.string()).default([]),
+  status: z.enum(['ACTIVE', 'INACTIVE']).default('ACTIVE'),
 });
 
 export type DonorFormData = z.infer<typeof donorFormSchema>;

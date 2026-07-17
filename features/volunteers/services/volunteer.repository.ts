@@ -1,11 +1,11 @@
 import { FirebaseRepository } from '@/lib/firebase/shared/FirebaseRepository';
-import type { VolunteerProfile } from '../types/volunteer.types';
+import type { Volunteer } from '../types/volunteer.types';
 
 import { db } from '@/lib/firebase/client';
 import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 
 
-export class VolunteerRepository extends FirebaseRepository<VolunteerProfile> {
+export class VolunteerRepository extends FirebaseRepository<Volunteer> {
   constructor() {
     super('volunteerProfiles');
   }
@@ -26,8 +26,8 @@ export class VolunteerRepository extends FirebaseRepository<VolunteerProfile> {
       return `VOL-${currentYear}-000001`;
     }
 
-    const lastVolunteer = snapshot.docs[0].data() as VolunteerProfile;
-    const lastNumberStr = lastVolunteer.volunteerNumber.split('-')[2];
+    const lastVolunteer = snapshot.docs[0].data() as Volunteer;
+    const lastNumberStr = lastVolunteer.volunteerNumber ? lastVolunteer.volunteerNumber.split('-')[2] : '000000';
     const lastNumber = parseInt(lastNumberStr, 10);
     const nextNumber = (lastNumber + 1).toString().padStart(6, '0');
     

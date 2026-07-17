@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  volunteerProfileSchema,
+  volunteerFormSchema,
   volunteerAssignmentSchema,
   volunteerAttendanceSchema,
   volunteerStatusSchema,
@@ -10,7 +10,36 @@ import {
   attendanceStatusSchema,
 } from '../validation/volunteer.schemas';
 
-export type VolunteerProfile = z.infer<typeof volunteerProfileSchema>;
+export type VolunteerFormData = z.infer<typeof volunteerFormSchema>;
+
+export interface Volunteer extends VolunteerFormData {
+  id: string;
+  volunteerNumber: string;
+  slug: string;
+  normalizedName: string;
+  normalizedEmail: string;
+  normalizedPhone: string;
+  keywords: string[];
+  searchVector: string[];
+  analytics: Record<string, any>;
+  ai: Record<string, any>;
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
+  updatedBy: string;
+  archivedAt?: Date;
+  deletedAt?: Date;
+  leaveDate?: Date;
+  metrics?: {
+    totalHours?: number;
+    reliabilityScore?: number;
+    assignmentsCompleted?: number;
+  };
+}
+
+export type CreateVolunteerDTO = Omit<Volunteer, 'id' | 'createdAt' | 'updatedAt'>;
+export type UpdateVolunteerDTO = Partial<CreateVolunteerDTO>;
+
 export type VolunteerAssignment = z.infer<typeof volunteerAssignmentSchema>;
 export type VolunteerAttendance = z.infer<typeof volunteerAttendanceSchema>;
 
@@ -19,9 +48,6 @@ export type VerificationStatus = z.infer<typeof verificationStatusSchema>;
 export type VolunteerType = z.infer<typeof volunteerTypeSchema>;
 export type AssignmentStatus = z.infer<typeof assignmentStatusSchema>;
 export type AttendanceStatus = z.infer<typeof attendanceStatusSchema>;
-
-export type CreateVolunteerProfileDTO = Omit<VolunteerProfile, 'id' | 'createdAt' | 'updatedAt' | 'metrics'>;
-export type UpdateVolunteerProfileDTO = Partial<CreateVolunteerProfileDTO>;
 
 export type CreateAssignmentDTO = Omit<VolunteerAssignment, 'id' | 'createdAt' | 'updatedAt'>;
 export type UpdateAssignmentDTO = Partial<CreateAssignmentDTO>;

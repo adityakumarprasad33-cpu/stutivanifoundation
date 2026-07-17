@@ -48,7 +48,7 @@ export const UserManagementTable = ({ users }: Props) => {
                 
                 <td className="px-6 py-4">
                   <div className="flex flex-wrap gap-1.5">
-                    {(user.roles || [user.role]).map((r) => (
+                    {user.roles.map((r) => (
                       <span key={r} className={cn(
                         "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize",
                         r === 'admin' ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300" :
@@ -76,7 +76,7 @@ export const UserManagementTable = ({ users }: Props) => {
                   <div className="flex flex-col gap-0.5">
                     <span className="text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1.5">
                       <Clock size={12} className="text-gray-400" />
-                      {user.lastActivity ? formatDistanceToNow(user.lastActivity as unknown as Date, { addSuffix: true }) : 'Never'}
+                      {user.lastLogin ? formatDistanceToNow(user.lastLogin as unknown as Date, { addSuffix: true }) : 'Never'}
                     </span>
                   </div>
                 </td>

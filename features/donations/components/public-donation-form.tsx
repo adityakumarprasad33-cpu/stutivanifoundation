@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import type { Campaign } from '@/features/donations/types/donation.types';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -265,7 +266,7 @@ export function PublicDonationForm({ initialCampaigns, user }: PublicDonationFor
                     ₹{amount.toLocaleString()}
                   </h2>
                   <p className="text-lg text-foreground font-medium">
-                    To {CAMPAIGNS.find(c => c.id === selectedCampaign)?.title}
+                    To {initialCampaigns.find((c: Campaign) => c.id === selectedCampaign)?.title}
                   </p>
                 </div>
               </div>

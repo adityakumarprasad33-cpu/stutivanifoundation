@@ -46,8 +46,8 @@ export default async function DonorWorkspacePage({
           <CardContent className="space-y-2">
             <p><strong>Email:</strong> {donor.email}</p>
             <p><strong>Phone:</strong> {donor.phone}</p>
-            <p><strong>Address:</strong> {donor.address.city}, {donor.address.state}, {donor.address.country}</p>
-            <p><strong>PAN:</strong> {donor.taxDetails.panNumber || 'N/A'}</p>
+            <p><strong>Address:</strong> {donor.address?.city || 'N/A'}, {donor.address?.state || 'N/A'}, {donor.address?.country || 'N/A'}</p>
+            <p><strong>PAN:</strong> {donor.taxDetails?.panNumber || 'N/A'}</p>
           </CardContent>
         </Card>
 

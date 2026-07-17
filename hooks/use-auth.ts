@@ -8,7 +8,7 @@ export const useAuth = () => {
     firebaseUser,
     isLoading,
     isAuthenticated: !!user,
-    role: user?.role || null,
+    role: user?.lastSelectedRole || user?.roles?.[0] || null,
     status: user?.status || null,
     logout,
     refreshSession,

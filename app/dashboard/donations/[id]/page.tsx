@@ -57,7 +57,7 @@ export default async function DonationWorkspacePage({ params }: { params: Promis
                 <p><strong>Name:</strong> <Link href={`/dashboard/donors/${donor.id}`} className="text-primary hover:underline">{donor.fullName}</Link></p>
                 <p><strong>Email:</strong> {donor.email}</p>
                 <p><strong>Phone:</strong> {donor.phone}</p>
-                <p><strong>80G Eligible:</strong> {donor.taxDetails.eligible80G ? 'Yes' : 'No'}</p>
+                <p><strong>80G Eligible:</strong> {donor.taxDetails?.eligible80G ? 'Yes' : 'No'}</p>
               </>
             ) : (
               <p className="text-muted-foreground text-sm italic">Donor information unavailable or anonymous.</p>

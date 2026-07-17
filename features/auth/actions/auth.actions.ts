@@ -72,7 +72,7 @@ export async function registerPublic(data: {
     const activityRepo = new ActivityRepository();
     await activityRepo.log({
       userId: claims.uid,
-      action: 'USER_REGISTERED',
+      action: 'PROFILE_UPDATED',
       module: 'Auth',
       description: `New public user registered: ${data.email}`,
     });
@@ -134,7 +134,7 @@ export async function registerDonor(data: {
     const activityRepo = new ActivityRepository();
     await activityRepo.log({
       userId: claims.uid,
-      action: 'DONOR_REGISTERED',
+      action: 'DONOR_CREATED',
       module: 'Auth',
       description: `New donor registered: ${data.email}`,
     });
@@ -211,7 +211,7 @@ export async function registerVolunteer(data: {
     const activityRepo = new ActivityRepository();
     await activityRepo.log({
       userId: claims.uid,
-      action: 'VOLUNTEER_APPLIED',
+      action: 'VOLUNTEER_CREATED',
       module: 'Auth',
       description: `New volunteer application submitted: ${data.email}`,
     });

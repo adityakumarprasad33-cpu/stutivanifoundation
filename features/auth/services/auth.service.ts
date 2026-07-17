@@ -7,7 +7,7 @@ import type { LoginFormData } from '../validation/auth.schemas';
 export class AuthService {
   private activityRepo = new ActivityRepository();
 
-  async register(data: { email: string; password: string; firstName: string; lastName: string; phone?: string }): Promise<{ idToken: string; role?: string; roles?: string[]; activeRole?: string; lastSelectedRole?: string }> {
+  async register(data: { email: string; password: string; firstName: string; lastName: string; phone?: string }): Promise<{ idToken: string; role?: string; roles?: string[]; activeRole?: string; lastSelectedRole?: string; status?: string }> {
     try {
       // 1. Create Firebase User
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -38,8 +38,9 @@ export class AuthService {
       const roles = sessionData.data?.roles || ['volunteer'];
       const activeRole = sessionData.data?.activeRole || 'volunteer';
       const lastSelectedRole = sessionData.data?.lastSelectedRole || 'volunteer';
+      const status = sessionData.data?.status || 'PENDING';
 
-      return { idToken, role: undefined, roles, activeRole, lastSelectedRole };
+      return { idToken, role: undefined, roles, activeRole, lastSelectedRole, status };
     } catch (error) {
       console.error('Registration inner error:', error);
       await this.activityRepo.log({
@@ -55,7 +56,7 @@ export class AuthService {
     }
   }
 
-  async login(data: LoginFormData): Promise<{ idToken: string; role?: string; roles?: string[]; activeRole?: string; lastSelectedRole?: string }> {
+  async login(data: LoginFormData): Promise<{ idToken: string; role?: string; roles?: string[]; activeRole?: string; lastSelectedRole?: string; status?: string }> {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
       
@@ -87,6 +88,7 @@ export class AuthService {
       const roles = sessionData.data?.roles || [finalRole];
       const activeRole = sessionData.data?.activeRole || finalRole;
       const lastSelectedRole = sessionData.data?.lastSelectedRole || finalRole;
+      const status = sessionData.data?.status || 'PENDING';
 
       await this.activityRepo.log({
         action: 'LOGIN_SUCCESS',
@@ -94,7 +96,7 @@ export class AuthService {
         description: `User logged in: ${data.email}`,
       });
 
-      return { idToken, role: finalRole, roles, activeRole, lastSelectedRole };
+      return { idToken, role: finalRole, roles, activeRole, lastSelectedRole, status };
     } catch (error) {
       if (error && typeof error === 'object' && 'code' in error && error.code === 'auth/too-many-requests') {
         await this.activityRepo.log({

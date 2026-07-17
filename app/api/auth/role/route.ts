@@ -25,14 +25,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify the user actually owns this role
-    const roles = userDoc.roles || [userDoc.role];
+    const roles = userDoc.roles || [];
     if (!roles.includes(role)) {
       return NextResponse.json(errorResponse(new Error('Forbidden: User does not possess this role')), { status: 403 });
     }
 
-    // Update activeRole and lastSelectedRole in Firestore
+    // Update lastSelectedRole in Firestore
     await userRepo.update(userDoc.id!, {
-      activeRole: role,
       lastSelectedRole: role,
     });
 

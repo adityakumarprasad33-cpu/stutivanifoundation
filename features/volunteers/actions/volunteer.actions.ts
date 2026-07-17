@@ -162,12 +162,11 @@ export async function approveVolunteer(id: string) {
     const userDoc = await userRepo.getById(existing.linkedUserId);
     
     if (userDoc) {
-       const updatedRoles = Array.from(new Set([...userDoc.roles, 'VOLUNTEER']));
-       await userRepo.update(existing.linkedUserId, {
-         status: 'ACTIVE',
-         roles: updatedRoles,
-         updatedAt: new Date()
-       });
+        const updatedRoles = Array.from(new Set([...userDoc.roles, 'volunteer' as const]));
+        await userRepo.update(existing.linkedUserId, {
+          status: 'ACTIVE',
+          roles: updatedRoles
+        });
        
        // Note: To set Custom Claims securely, we should call our internal API
        const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/auth/claims`, {
@@ -184,7 +183,7 @@ export async function approveVolunteer(id: string) {
     const activityRepo = new ActivityRepository();
     await activityRepo.log({
       userId: user.uid,
-      action: 'VOLUNTEER_APPROVED',
+      action: 'VOLUNTEER_VERIFIED',
       module: 'VOLUNTEERS',
       description: `Approved volunteer application for ${existing.personalInfo.firstName}`,
       metadata: { entityId: id, volunteerNumber: existing.volunteerNumber }
@@ -210,17 +209,18 @@ export async function rejectVolunteer(id: string) {
     if (!existing.linkedUserId) throw new Error('Volunteer has no linked user ID');
 
     await volunteerRepo.update(id, {
-      status: 'REJECTED',
+      status: 'ARCHIVED',
+      verificationStatus: 'REJECTED',
       updatedBy: user.uid
     });
 
     const userRepo = new UserRepository();
-    await userRepo.update(existing.linkedUserId, { status: 'REJECTED', updatedAt: new Date() });
+    await userRepo.update(existing.linkedUserId, { status: 'REJECTED' });
 
     const activityRepo = new ActivityRepository();
     await activityRepo.log({
       userId: user.uid,
-      action: 'VOLUNTEER_REJECTED',
+      action: 'VOLUNTEER_UPDATED',
       module: 'VOLUNTEERS',
       description: `Rejected volunteer application for ${existing.personalInfo.firstName}`,
       metadata: { entityId: id, volunteerNumber: existing.volunteerNumber }
@@ -250,7 +250,7 @@ export async function suspendVolunteer(id: string) {
     });
 
     const userRepo = new UserRepository();
-    await userRepo.update(existing.linkedUserId, { status: 'SUSPENDED', updatedAt: new Date() });
+    await userRepo.update(existing.linkedUserId, { status: 'SUSPENDED' });
 
     const activityRepo = new ActivityRepository();
     await activityRepo.log({

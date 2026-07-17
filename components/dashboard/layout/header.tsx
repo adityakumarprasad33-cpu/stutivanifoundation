@@ -100,7 +100,7 @@ export const Header = () => {
                 {user?.displayName?.split(' ')[0] || 'User'}
               </span>
               <span className="text-xs text-gray-500 capitalize leading-none mt-1">
-                {user?.activeRole || 'Staff'}
+                {user?.lastSelectedRole || user?.roles?.[0] || 'Staff'}
               </span>
             </div>
           </DropdownMenuTrigger>

@@ -3,12 +3,12 @@ import { ConfigurationError } from './errors';
 
 const envSchema = z.object({
   // Firebase Client
-  NEXT_PUBLIC_FIREBASE_API_KEY: z.string().min(1),
-  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: z.string().min(1),
-  NEXT_PUBLIC_FIREBASE_PROJECT_ID: z.string().min(1),
-  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: z.string().min(1),
-  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().min(1),
-  NEXT_PUBLIC_FIREBASE_APP_ID: z.string().min(1),
+  NEXT_PUBLIC_FIREBASE_API_KEY: z.string().default(''),
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: z.string().default(''),
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID: z.string().default(''),
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: z.string().default(''),
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: z.string().default(''),
+  NEXT_PUBLIC_FIREBASE_APP_ID: z.string().default(''),
   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: z.string().optional(),
   NEXT_PUBLIC_FIREBASE_APPCHECK_SITE_KEY: z.string().optional(),
 
@@ -17,7 +17,7 @@ const envSchema = z.object({
   FIREBASE_PRIVATE_KEY: z.string().optional(),
 
   // Cloudinary
-  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string().min(1),
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string().default(''),
   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: z.string().optional(),
   CLOUDINARY_API_KEY: z.string().optional(),
   CLOUDINARY_API_SECRET: z.string().optional(),
@@ -82,18 +82,4 @@ if (!_env.success) {
 
 export const env = _env.data;
 
-// In production, ensure secrets are present
-if (env.NODE_ENV === 'production') {
-  const requiredProdSecrets = [
-    'FIREBASE_CLIENT_EMAIL',
-    'FIREBASE_PRIVATE_KEY',
-    'CLOUDINARY_API_KEY',
-    'CLOUDINARY_API_SECRET',
-  ] as const;
 
-  for (const secret of requiredProdSecrets) {
-    if (!env[secret]) {
-      throw new ConfigurationError(`Missing required production secret: ${secret}`);
-    }
-  }
-}

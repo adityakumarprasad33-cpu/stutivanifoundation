@@ -6,14 +6,18 @@ import { getStorage } from 'firebase-admin/storage';
 
 if (!getApps().length) {
   try {
-    initializeApp({
-      credential: cert({
-        projectId: env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        clientEmail: env.FIREBASE_CLIENT_EMAIL,
-        privateKey: env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      }),
-      storageBucket: env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    });
+    if (env.FIREBASE_PRIVATE_KEY) {
+      initializeApp({
+        credential: cert({
+          projectId: env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'dummy-project-id',
+          clientEmail: env.FIREBASE_CLIENT_EMAIL,
+          privateKey: env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+        }),
+        storageBucket: env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || 'dummy.appspot.com',
+      });
+    } else {
+      initializeApp({ projectId: env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || 'dummy-project-id' });
+    }
   } catch (error: unknown) {
     console.error('Firebase admin initialization error', error);
   }

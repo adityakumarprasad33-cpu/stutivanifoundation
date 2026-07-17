@@ -3,9 +3,7 @@
  * Placeholder for authentication business logic.
  */
 
-export interface AuthSession {
-  // TODO: Define session type based on Firebase User and Firestore Role
-}
+export type AuthSession = Record<string, never>;
 
 export const authenticateUser = async () => {
   // TODO: Implement authentication

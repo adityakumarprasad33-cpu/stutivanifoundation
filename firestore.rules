@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // Helper Functions
+    function isAdmin() {
+      return request.auth != null && request.auth.token.role == 'ADMIN';
+    }
+    
+    function isOwner(linkedUserId) {
+      return request.auth != null && request.auth.uid == linkedUserId;
+    }
+    
+    function isModifyingProtectedFields() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasAny([
+        'status', 
+        'verificationStatus', 
+        'linkedUserId', 
+        'volunteerNumber', 
+        'role'
+      ]);
+    }
+
+    match /volunteers/{volunteerId} {
+      // Create: Anyone authenticated can create their own profile
+      allow create: if request.auth != null && request.resource.data.linkedUserId == request.auth.uid;
+      
+      // Read: Users can read their own profile, Admins can read all
+      allow read: if isOwner(resource.data.linkedUserId) || isAdmin();
+      
+      // Update: Users can update their own profile EXCEPT protected fields
+      allow update: if (isOwner(resource.data.linkedUserId) && !isModifyingProtectedFields()) || isAdmin();
+      
+      // Delete: Only admins
+      allow delete: if isAdmin();
+    }
+    
+    // Other collections can be added here
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

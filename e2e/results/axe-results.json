@@ -1,0 +1,39 @@
+{
+  "violations": [
+    {
+      "route": "/",
+      "id": "color-contrast",
+      "impact": "serious",
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+      "nodes": 64
+    },
+    {
+      "route": "/",
+      "id": "heading-order",
+      "impact": "moderate",
+      "description": "Ensure the order of headings is semantically correct",
+      "nodes": 1
+    },
+    {
+      "route": "/",
+      "id": "region",
+      "impact": "moderate",
+      "description": "Ensure all page content is contained by landmarks",
+      "nodes": 1
+    },
+    {
+      "route": "/about",
+      "id": "color-contrast",
+      "impact": "serious",
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+      "nodes": 25
+    },
+    {
+      "route": "/about",
+      "id": "region",
+      "impact": "moderate",
+      "description": "Ensure all page content is contained by landmarks",
+      "nodes": 1
+    }
+  ]
+}

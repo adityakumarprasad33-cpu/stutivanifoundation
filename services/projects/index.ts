@@ -3,9 +3,7 @@
  * Placeholder for project-related business logic.
  */
 
-export interface Project {
-  // TODO: Define project type
-}
+export type Project = Record<string, never>;
 
 export const fetchProjects = async () => {
   // TODO: Implement fetch logic

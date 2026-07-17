@@ -3,9 +3,7 @@
  * Placeholder for blog-related business logic.
  */
 
-export interface Blog {
-  // TODO: Define blog type
-}
+export type Blog = Record<string, never>;
 
 export const fetchBlogs = async () => {
   // TODO: Implement fetch logic

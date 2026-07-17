@@ -1,11 +1,7 @@
-import { Geist, Geist_Mono } from 'next/font/google';
-
-export const fontSans = Geist({
-  subsets: ['latin'],
+export const fontSans = {
   variable: '--font-sans',
-});
+};
 
-export const fontMono = Geist_Mono({
-  subsets: ['latin'],
+export const fontMono = {
   variable: '--font-mono',
-});
+};

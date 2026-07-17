@@ -15,6 +15,7 @@
   --animate-accordion-down: accordion-down var(--animate-duration-normal) var(--animate-ease-out);
   --animate-accordion-up: accordion-up var(--animate-duration-normal) var(--animate-ease-out);
   --animate-fade-up: fade-up var(--animate-duration-slow) var(--animate-ease-out);
+  --animate-marquee: marquee 35s linear infinite;
 }
 
 @keyframes accordion-down {
@@ -45,3 +46,15 @@
     transform: translateY(0);
   }
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation-play-state: paused !important;
+  }
+}
+

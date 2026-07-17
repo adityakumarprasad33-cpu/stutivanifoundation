@@ -3,9 +3,7 @@
  * Placeholder for volunteer-related business logic.
  */
 
-export interface Volunteer {
-  // TODO: Define volunteer type
-}
+export type Volunteer = Record<string, never>;
 
 export const registerVolunteer = async () => {
   // TODO: Implement registration logic

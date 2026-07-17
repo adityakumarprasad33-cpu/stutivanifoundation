@@ -1,18 +1,21 @@
 export const COLLECTIONS = {
   USERS: 'users',
   PROJECTS: 'projects',
-  PROGRAMS: 'programs',
   BLOGS: 'blogs',
-  GALLERY: 'gallery',
   EVENTS: 'events',
-  DONATIONS: 'donations',
+  GALLERY: 'gallery',
+  PROGRAMS: 'programs',
   VOLUNTEERS: 'volunteers',
   CONTACT_MESSAGES: 'contact_messages',
+  TESTIMONIALS: 'testimonials',
   PARTNERS: 'partners',
   REPORTS: 'reports',
+  NEWSLETTERS: 'newsletters',
   SETTINGS: 'settings',
   NOTIFICATIONS: 'notifications',
+  DONORS: 'donors',
+  DONATIONS: 'donations',
+  CAMPAIGNS: 'campaigns',
+  TRANSACTIONS: 'transactions',
   ACTIVITY_LOGS: 'activity_logs',
 } as const;
-
-export type FirestoreCollection = typeof COLLECTIONS[keyof typeof COLLECTIONS];

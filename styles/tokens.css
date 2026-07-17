@@ -30,11 +30,35 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 999px;
   
   /* Shadows */
   --shadow-level-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-level-2: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-level-3: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-level-4: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-level-2: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-level-3: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-level-4: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  
+  --shadow-elevation: 0 4px 24px -4px rgb(0 0 0 / 0.08);
+  --shadow-glass: 0 8px 32px 0 rgb(0 0 0 / 0.05);
+
+  /* Z-Index */
+  --z-above: 10;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-toast: 100;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/70 backdrop-blur-md border border-border/50 shadow-glass;
+  }
+  
+  .glass-card {
+    @apply bg-card/70 backdrop-blur-md border border-border/50 shadow-glass;
+  }
+  
+  .bg-glass {
+    @apply bg-background/60 backdrop-blur-lg border border-border/40 shadow-glass;
+  }
 }
